@@ -1,0 +1,11 @@
+@import 'tailwindcss/base';
+
+@import 'tailwindcss/components';
+
+@import 'tailwindcss/utilities';
+
+.disabled {
+	@apply opacity-50;
+	@apply cursor-not-allowed;
+	@apply pointer-events-none;
+}
