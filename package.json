@@ -26,22 +26,30 @@
     "start": "react-scripts start",
     "prebuild": "npm run tailwind",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "SKIP_PREFLIGHT_CHECK=true react-scripts test --watchAll=false",
+    "test:dev": "SKIP_PREFLIGHT_CHECK=true react-scripts test",
+    "test:coverage": "SKIP_PREFLIGHT_CHECK=true CI=true react-scripts test --watchAll=false --coverage",
     "eject": "react-scripts eject",
-    "tailwind": "tailwindcss build ./src/tailwind.css -o src/index.css"
+    "tailwind": "tailwindcss build ./src/tailwind.css -o src/index.css",
+    "lint": "eslint ."
   },
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}",
-      "!<rootDir>/node_modules/",
-      "!<rootDir>/src/components/"
+      "!**/node_modules/**"
+    ],
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/node_modules/",
+      "src/index.js",
+      "src/serviceWorker.js",
+      "src/components/index.js"
     ],
     "coverageThreshold": {
       "global": {
-        "branches": 90,
-        "functions": 90,
-        "lines": 90,
-        "statements": 90
+        "branches": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
       }
     }
   },
@@ -64,11 +72,12 @@
     }
   },
   "lint-staged": {
-    "src/**/*.(js|jsx)": [
-      "eslint --fix",
-      "jest --findRelatedTests --coverage"
+    "src/**/*.js": [
+      "prettier --write",
+      "eslint . --fix",
+      "jest --bail --findRelatedTests --coverage"
     ],
-    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+    "src/**/*.{js,json,css,md}": [
       "prettier --write"
     ]
   },
