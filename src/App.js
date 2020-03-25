@@ -21,7 +21,17 @@ function App() {
 	const onSubmit = (e) => {
 		e.preventDefault();
 
-		setDecimalOutput(parseInt(binaryInput, 2));
+		// Formula:
+		// input = 1 => output = 1 * (2^0) = 1
+		// input = 10 => output = (0 * (2^0)) + (1 * (2^1)) = 2
+		// So we reverse and iterate from the back
+		const result = binaryInput
+			.split('')
+			.map(Number)
+			.reverse()
+			.reduce((acc, char, index) => acc + char * Math.pow(2, index));
+
+		setDecimalOutput(result);
 	};
 
 	const clearInputs = () => {
