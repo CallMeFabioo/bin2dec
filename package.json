@@ -19,6 +19,7 @@
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-testing-library": "^2.2.3",
     "husky": "^4.2.3",
+    "jest": "^25.2.3",
     "lint-staged": "^10.0.9",
     "prettier": "^2.0.2"
   },
@@ -27,12 +28,11 @@
     "start": "react-scripts start",
     "prebuild": "npm run tailwind",
     "build": "react-scripts build",
-    "test": "react-scripts test --watchAll=false",
-    "test:dev": "react-scripts test",
-    "test:coverage": "CI=true react-scripts test --watchAll=false --coverage",
-    "eject": "react-scripts eject",
+    "test": "SKIP_PREFLIGHT_CHECK=true react-scripts test --watchAll=false",
+    "test:dev": "SKIP_PREFLIGHT_CHECK=true react-scripts test",
+    "test:coverage": "SKIP_PREFLIGHT_CHECK=true CI=true react-scripts test --watchAll=false --coverage",
     "tailwind": "tailwindcss build ./src/tailwind.css -o src/index.css",
-    "lint": "eslint ."
+    "eject": "react-scripts eject"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -77,8 +77,9 @@
   "lint-staged": {
     "src/**/*.js": [
       "prettier --write",
-      "eslint . --fix",
-      "jest --bail --findRelatedTests --coverage"
+      "eslint --fix",
+      "npm test",
+      "npm run test:coverage"
     ],
     "src/**/*.{js,json,css,md}": [
       "prettier --write"

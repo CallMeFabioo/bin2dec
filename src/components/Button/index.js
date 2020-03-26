@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-export default function Button({ disabled, children, ...props }) {
+function Button({ disabled, children, ...props }) {
 	return (
 		<button
 			className={classnames({
@@ -24,3 +25,9 @@ export default function Button({ disabled, children, ...props }) {
 		</button>
 	);
 }
+
+Button.propTypes = {
+	disabled: PropTypes.bool,
+};
+
+export default Button;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import { Input, Label, Button } from 'components';
 
@@ -6,17 +6,20 @@ function App() {
 	const [binaryInput, setBinaryInput] = useState('');
 	const [decimalOutput, setDecimalOutput] = useState('');
 	const [errorMessage, setErrorMessage] = useState('');
+	const [disabledButton, setToggleButton] = useState(true);
 
-	useEffect(() => {
-		if (binaryInput.match(/^[0-1]+$/g) === null) {
+	const onChange = (e) => {
+		const value = e.target.value;
+
+		if (value.match(/^[0-1]+$/g) === null) {
 			setErrorMessage('Please, enter a binary number.');
+			return;
 		}
 
-		return () => {
-			setErrorMessage('');
-			setDecimalOutput('');
-		};
-	}, [binaryInput]);
+		setErrorMessage('');
+		setBinaryInput(value);
+		setToggleButton(false);
+	};
 
 	const onSubmit = (e) => {
 		e.preventDefault();
@@ -37,6 +40,7 @@ function App() {
 	const clearInputs = () => {
 		setBinaryInput('');
 		setDecimalOutput('');
+		setToggleButton(true);
 	};
 
 	return (
@@ -52,7 +56,7 @@ function App() {
 						id="binaryInput"
 						placeholder="A 8 digit binary number"
 						hasError={Boolean(errorMessage)}
-						onChange={setBinaryInput}
+						onChange={onChange}
 						value={binaryInput}
 					/>
 					{errorMessage && (
@@ -73,7 +77,7 @@ function App() {
 						Clear
 					</Button>
 
-					<Button type="submit" disabled={errorMessage}>
+					<Button type="submit" disabled={disabledButton}>
 						Convert!
 					</Button>
 				</div>

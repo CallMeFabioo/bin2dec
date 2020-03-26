@@ -1,133 +1,120 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from './App';
 
 describe('Structure', () => {
-	it('renders the binary input label', () => {
-		const { queryByText } = render(<App />);
+	it('renders inputs label', () => {
+		render(<App />);
 
-		const binaryLabel = queryByText(/Binary input/i);
+		const binary = screen.getByLabelText(/Binary input/i);
+		const decimal = screen.getByLabelText(/Decimal output/i);
 
-		expect(binaryLabel).toBeInTheDocument();
+		expect(binary).toBeInTheDocument();
+		expect(decimal).toBeInTheDocument();
 	});
 
-	it('renders the binary input', () => {
-		const { getByPlaceholderText } = render(<App />);
+	it('renders inputs', () => {
+		render(<App />);
 
-		const binaryInput = getByPlaceholderText(/A 8 digit binary number/i);
+		const binary = screen.getByPlaceholderText(/A 8 digit binary number/i);
+		const decimal = screen.getByPlaceholderText(/Decimal output/i);
 
-		expect(binaryInput).toBeInTheDocument();
-	});
-
-	it('renders the decimal input label', () => {
-		const { queryByText } = render(<App />);
-
-		const decimalLabel = queryByText(/Decimal output/i);
-
-		expect(decimalLabel).toBeInTheDocument();
-	});
-	it('renders the decimal input', () => {
-		const { getByPlaceholderText } = render(<App />);
-
-		const decimalInput = getByPlaceholderText(/Decimal output/i);
-
-		expect(decimalInput).toBeInTheDocument();
+		expect(binary).toBeInTheDocument();
+		expect(decimal).toBeInTheDocument();
 	});
 });
 
 describe('Default state', () => {
-	it('renders a error message if binary input has no value', () => {
-		const { queryByText, getByPlaceholderText } = render(<App />);
-
-		const binaryInput = getByPlaceholderText(/A 8 digit binary number/i);
-		const errorMessage = queryByText(/Please, enter a binary number/i);
-
-		expect(binaryInput.classList).toContain('border-red-500');
-		expect(errorMessage).toBeInTheDocument();
-	});
-
 	it('renders with decimal input disabled', () => {
-		const { getByPlaceholderText } = render(<App />);
+		render(<App />);
 
-		const decimalInput = getByPlaceholderText(/Decimal output/i);
+		const decimal = screen.getByLabelText(/Decimal output/i);
 
-		expect(decimalInput).toBeDisabled();
+		expect(decimal).toBeDisabled();
 	});
 
-	it('renders with "Convert!" button disabled', () => {
-		const { queryByText } = render(<App />);
+	it('renders with "Convert!" and "Clear" buttons disabled', () => {
+		render(<App />);
 
-		const submitButton = queryByText(/Convert!/i);
+		const submit = screen.getByText(/Convert!/i);
+		const clear = screen.getByText(/Clear/i);
 
-		expect(submitButton).toHaveClass('disabled');
-	});
-
-	it('renders with "Clear!" button disabled', () => {
-		const { queryByText } = render(<App />);
-
-		const clearButton = queryByText(/Clear/i);
-
-		expect(clearButton).toHaveClass('disabled');
+		expect(submit).toHaveClass('disabled');
+		expect(clear).toHaveClass('disabled');
 	});
 });
 
 describe('Binary input behavior', () => {
 	it('only enables the "Convert" button when the number digited is a binary digit', async () => {
-		const { queryByText, getByPlaceholderText } = render(<App />);
+		render(<App />);
 
-		const clearButton = queryByText(/Clear/i);
-		const submitButton = queryByText(/Convert!/i);
-		const decimalInput = getByPlaceholderText(/Decimal output/i);
-		const binaryInput = getByPlaceholderText(/A 8 digit binary number/i);
-		const errorMessage = queryByText(/Please, enter a binary number/i);
+		const submit = screen.getByText(/Convert!/i);
+		const clear = screen.getByText(/Clear/i);
+		const binary = screen.getByLabelText(/Binary input/i);
+		const decimal = screen.getByLabelText(/Decimal output/i);
 
-		await userEvent.type(binaryInput, '101010');
+		await userEvent.type(binary, '101010');
 
-		expect(errorMessage).not.toBeInTheDocument();
-		expect(submitButton).not.toHaveClass('disabled');
-		expect(clearButton).toHaveClass('disabled');
-		expect(decimalInput).toBeDefined();
+		expect(submit).not.toHaveClass('disabled');
+		expect(clear).toHaveClass('disabled');
+		expect(decimal).toBeDisabled();
 	});
 
 	it('renders a error message after a non binary digit is typed', async () => {
-		const { queryByText, getByPlaceholderText } = render(<App />);
+		render(<App />);
 
-		const binaryInput = getByPlaceholderText(/A 8 digit binary number/i);
-
-		const getErrorMessage = () => queryByText(/Please, enter a binary number/i);
-
-		let errorMessage = getErrorMessage();
-
-		expect(errorMessage).toBeInTheDocument();
+		const binaryInput = screen.getByLabelText(/Binary input/i);
+		const errorMessage = () =>
+			screen.queryByText(/Please, enter a binary number/i);
 
 		await userEvent.type(binaryInput, '1');
 
-		expect(errorMessage).not.toBeInTheDocument();
+		expect(errorMessage()).not.toBeInTheDocument();
 
-		userEvent.type(binaryInput, '2');
+		await userEvent.type(binaryInput, '2');
 
-		errorMessage = getErrorMessage();
-
-		expect(errorMessage).toBeInTheDocument();
+		expect(errorMessage()).toBeInTheDocument();
 	});
 });
 
 describe('Decimal input behavior', () => {
 	it('renders a result of a conversion of binary number to decimal number', async () => {
-		const { queryByText, getByPlaceholderText } = render(<App />);
+		render(<App />);
 
-		const submitButton = queryByText(/Convert!/i);
-		const decimalInput = getByPlaceholderText(/Decimal output/i);
-		const binaryInput = getByPlaceholderText(/A 8 digit binary number/i);
+		const submit = screen.queryByText(/Convert!/i);
+		const decimal = screen.getByLabelText(/Decimal output/i);
+		const binary = screen.getByLabelText(/Binary input/i);
 
-		const binaryNumber = '101010';
-		const decimalNumber = '42';
+		await userEvent.type(binary, '101010');
+		await userEvent.click(submit);
 
-		await userEvent.type(binaryInput, binaryNumber);
-		await userEvent.click(submitButton);
+		expect(decimal).toBeEnabled();
+		expect(decimal).toHaveValue('42');
+	});
+});
 
-		expect(decimalInput).toBeEnabled();
-		expect(decimalInput).toHaveValue(decimalNumber);
+describe('Clear behavior', () => {
+	it('clear inputs after result of a conversion', async () => {
+		render(<App />);
+
+		const submit = screen.queryByText(/Convert!/i);
+		const clear = screen.queryByText(/Clear/i);
+		const decimal = screen.getByLabelText(/Decimal output/i);
+		const binary = screen.getByLabelText(/Binary input/i);
+
+		await userEvent.type(binary, '101010');
+		await userEvent.click(submit);
+
+		expect(decimal).toBeEnabled();
+		expect(decimal).toHaveValue('42');
+		expect(clear).not.toHaveClass('disabled');
+
+		await userEvent.click(clear);
+
+		expect(submit).toHaveClass('disabled');
+		expect(binary).toHaveValue('');
+		expect(decimal).toBeDisabled();
+		expect(decimal).toHaveValue('');
 	});
 });

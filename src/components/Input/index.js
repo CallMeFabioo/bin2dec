@@ -26,7 +26,7 @@ function Input({ id, placeholder, hasError, onChange = (_) => _, ...props }) {
 			autoComplete="off"
 			id={id}
 			placeholder={placeholder}
-			onChange={(input) => onChange(input.target.value)}
+			onChange={onChange}
 			{...props}
 		/>
 	);
