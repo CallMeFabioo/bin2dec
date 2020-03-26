@@ -1,5 +1,7 @@
 # Bin2Dec
 
+[![Build Status](https://travis-ci.org/CallMeFabioo/bin2dec.svg?branch=master)](https://travis-ci.org/CallMeFabioo/bin2dec)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 **Tier:** 1-Beginner
