@@ -54,6 +54,7 @@ const Bin2DecApp = () => {
 					<Label labelFor="binaryInput">Binary input</Label>
 					<Input
 						id="binaryInput"
+						name="binaryInput"
 						placeholder="A 8 digit binary number"
 						hasError={Boolean(errorMessage)}
 						onChange={onChange}
@@ -67,6 +68,7 @@ const Bin2DecApp = () => {
 					<Label labelFor="decimalOutput">Decimal output</Label>
 					<Input
 						id="decimalOutput"
+						name="decimalOutput"
 						placeholder="Decimal output"
 						disabled={!decimalOutput}
 						value={decimalOutput}
