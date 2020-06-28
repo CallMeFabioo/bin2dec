@@ -10,6 +10,14 @@ it('renders a input', () => {
 	expect(container).toMatchSnapshot();
 });
 
+it('should use default onChange value', async () => {
+	render(<Input placeholder="Input" hasError={true} />);
+
+	await userEvent.type(screen.getByRole('textbox'), '1');
+
+	expect(screen.getByRole('textbox')).toHaveValue('1');
+});
+
 it('renders a input with error status', () => {
 	render(<Input placeholder="Input" hasError={true} />);
 

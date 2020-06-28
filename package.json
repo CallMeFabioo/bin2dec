@@ -47,10 +47,10 @@
     ],
     "coverageThreshold": {
       "global": {
-        "statements": 95,
+        "statements": 100,
         "branches": 100,
-        "functions": 85,
-        "lines": 85
+        "functions": 100,
+        "lines": 100
       }
     }
   },
@@ -67,7 +67,7 @@
     "jsxBracketSameLine": false,
     "useTabs": true,
     "singleQuote": true,
-    "tabWidth": 2
+    "tabWidth": 4
   },
   "husky": {
     "hooks": {
@@ -78,8 +78,7 @@
     "src/**/*.js": [
       "prettier --write",
       "eslint --fix",
-      "npm test",
-      "npm run test:coverage"
+      "npm test"
     ],
     "src/**/*.{js,json,css,md}": [
       "prettier --write"

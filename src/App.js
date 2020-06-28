@@ -61,7 +61,9 @@ const Bin2DecApp = () => {
 						value={binaryInput}
 					/>
 					{errorMessage && (
-						<p className="text-xs italic text-red-500">{errorMessage}</p>
+						<p className="text-xs italic text-red-500">
+							{errorMessage}
+						</p>
 					)}
 				</div>
 				<div className="mb-6">
@@ -75,7 +77,11 @@ const Bin2DecApp = () => {
 					/>
 				</div>
 				<div className="flex items-center justify-around">
-					<Button type="button" disabled={!decimalOutput} onClick={clearInputs}>
+					<Button
+						type="button"
+						disabled={!decimalOutput}
+						onClick={clearInputs}
+					>
 						Clear
 					</Button>
 
