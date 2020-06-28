@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render a form 1`] = `
+<div>
+  <div
+    class="flex items-center justify-center h-screen"
+  >
+    <form
+      class="w-1/2 px-8 pt-6 pb-8 bg-white rounded shadow-md"
+      novalidate=""
+    >
+      <div
+        class="mb-4"
+      >
+        <label
+          class="block mb-2 text-sm text-3xl font-bold text-center text-gray-700"
+          for="binaryInput"
+        >
+          Binary input
+        </label>
+        <input
+          autocomplete="off"
+          class="border rounded shadow w-full px-3 py-2 leading-tight text-gray-700 appearance-none focus:outline-none focus:shadow-outline"
+          id="binaryInput"
+          maxlength="8"
+          placeholder="A 8 digit binary number"
+          type="text"
+          value=""
+        />
+        
+      </div>
+      <div
+        class="mb-6"
+      >
+        <label
+          class="block mb-2 text-sm text-3xl font-bold text-center text-gray-700"
+          for="decimalOutput"
+        >
+          Decimal output
+        </label>
+        <input
+          autocomplete="off"
+          class="border rounded shadow w-full px-3 py-2 leading-tight text-gray-700 appearance-none focus:outline-none focus:shadow-outline"
+          disabled=""
+          id="decimalOutput"
+          maxlength="8"
+          placeholder="Decimal output"
+          type="text"
+          value=""
+        />
+      </div>
+      <div
+        class="flex items-center justify-around"
+      >
+        <button
+          class="border rounded disabled px-4 py-2 font-semibold text-blue-700 bg-transparent border-blue-500 hover:bg-blue-500 hover:text-white hover:border-transparent"
+          type="button"
+        >
+          Clear
+        </button>
+        <button
+          class="border rounded disabled px-4 py-2 font-semibold text-blue-700 bg-transparent border-blue-500 hover:bg-blue-500 hover:text-white hover:border-transparent"
+          type="submit"
+        >
+          Convert!
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+`;

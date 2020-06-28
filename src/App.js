@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 
 import { Input, Label, Button } from 'components';
 
-function App() {
+const Bin2DecApp = () => {
 	const [binaryInput, setBinaryInput] = useState('');
 	const [decimalOutput, setDecimalOutput] = useState('');
 	const [errorMessage, setErrorMessage] = useState('');
@@ -37,11 +37,11 @@ function App() {
 		setDecimalOutput(result);
 	};
 
-	const clearInputs = () => {
+	const clearInputs = useCallback(() => {
 		setBinaryInput('');
 		setDecimalOutput('');
 		setToggleButton(true);
-	};
+	}, []);
 
 	return (
 		<div className="flex items-center justify-center h-screen">
@@ -84,6 +84,6 @@ function App() {
 			</form>
 		</div>
 	);
-}
+};
 
-export default App;
+export default Bin2DecApp;

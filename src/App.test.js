@@ -1,28 +1,13 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
 import App from './App';
 
-describe('Structure', () => {
-	it('renders inputs label', () => {
-		render(<App />);
+it('render a form', () => {
+	const { container } = render(<App />);
 
-		const binary = screen.getByLabelText(/Binary input/i);
-		const decimal = screen.getByLabelText(/Decimal output/i);
-
-		expect(binary).toBeInTheDocument();
-		expect(decimal).toBeInTheDocument();
-	});
-
-	it('renders inputs', () => {
-		render(<App />);
-
-		const binary = screen.getByPlaceholderText(/A 8 digit binary number/i);
-		const decimal = screen.getByPlaceholderText(/Decimal output/i);
-
-		expect(binary).toBeInTheDocument();
-		expect(decimal).toBeInTheDocument();
-	});
+	expect(container).toMatchSnapshot();
 });
 
 describe('Default state', () => {
