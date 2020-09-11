@@ -2,6 +2,18 @@
   "name": "bin2dec",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "prestart": "npm run tailwind",
+    "start": "react-scripts start",
+    "prebuild": "npm run tailwind",
+    "build": "react-scripts build",
+    "test": "SKIP_PREFLIGHT_CHECK=true react-scripts test --watchAll=false",
+    "test:dev": "SKIP_PREFLIGHT_CHECK=true react-scripts test",
+    "test:coverage": "SKIP_PREFLIGHT_CHECK=true CI=true react-scripts test --watchAll=false --coverage",
+    "tailwind": "tailwindcss build ./src/tailwind.css -o src/index.css",
+    "eject": "react-scripts eject",
+    "release": "release-it"
+  },
   "dependencies": {
     "classnames": "^2.2.6",
     "prop-types": "^15.7.2",
@@ -23,17 +35,6 @@
     "lint-staged": "^10.0.9",
     "prettier": "^2.0.2",
     "release-it": "^14.0.2"
-  },
-  "scripts": {
-    "prestart": "npm run tailwind",
-    "start": "react-scripts start",
-    "prebuild": "npm run tailwind",
-    "build": "react-scripts build",
-    "test": "SKIP_PREFLIGHT_CHECK=true react-scripts test --watchAll=false",
-    "test:dev": "SKIP_PREFLIGHT_CHECK=true react-scripts test",
-    "test:coverage": "SKIP_PREFLIGHT_CHECK=true CI=true react-scripts test --watchAll=false --coverage",
-    "tailwind": "tailwindcss build ./src/tailwind.css -o src/index.css",
-    "eject": "react-scripts eject"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -72,15 +73,14 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "release-it"
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
     "src/**/*.js": [
       "prettier --write",
       "eslint --fix",
-      "npm test"
+      "npm test:coverage"
     ],
     "src/**/*.{js,json,css,md}": [
       "prettier --write"
