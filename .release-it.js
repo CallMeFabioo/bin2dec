@@ -1,6 +1,6 @@
 module.exports = {
 	git: {
-		commitMessage: 'chore: release v${version}',
+		commitMessage: 'chore: release ${version}',
 	},
 	npm: {
 		publish: false,
