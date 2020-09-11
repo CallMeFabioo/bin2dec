@@ -21,7 +21,8 @@
     "husky": "^4.2.3",
     "jest": "^25.2.3",
     "lint-staged": "^10.0.9",
-    "prettier": "^2.0.2"
+    "prettier": "^2.0.2",
+    "release-it": "^14.0.2"
   },
   "scripts": {
     "prestart": "npm run tailwind",
@@ -72,7 +73,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "pre-push": "npm run test:coverage"
+      "pre-push": "release-it"
     }
   },
   "lint-staged": {
