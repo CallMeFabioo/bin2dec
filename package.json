@@ -12,8 +12,7 @@
     "test:coverage": "SKIP_PREFLIGHT_CHECK=true CI=true react-scripts test --watchAll=false --coverage",
     "tailwind": "tailwindcss build ./src/tailwind.css -o src/index.css",
     "eject": "react-scripts eject",
-    "release": "release-it",
-    "release:ci": "release-it --ci"
+    "release": "release-it"
   },
   "dependencies": {
     "classnames": "^2.2.6",
