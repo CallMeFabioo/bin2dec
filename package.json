@@ -1,6 +1,6 @@
 {
   "name": "bin2dec",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "scripts": {
     "prestart": "npm run tailwind",
